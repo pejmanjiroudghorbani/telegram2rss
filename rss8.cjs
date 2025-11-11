@@ -421,3 +421,16 @@ process.on('unhandledRejection', (reason, promise) => {
 server.listen(serverport, () => {
     console.log(`Server running at port ${serverport}`);
 });
+const express = require('express');
+const app = express();
+
+app.get('/rss/:channel', async (req, res) => {
+  const channel = req.params.channel;
+  // اینجا کد تولید فید از کانال تلگرام رو بنویس
+  res.set('Content-Type', 'application/rss+xml');
+  res.send(`<rss><channel><title>${channel}</title></channel></rss>`);
+});
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Server is running...');
+});
